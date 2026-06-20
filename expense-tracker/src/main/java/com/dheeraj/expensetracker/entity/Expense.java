@@ -1,4 +1,5 @@
 package com.dheeraj.expensetracker.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +19,10 @@ public class Expense {
    private LocalDate date;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "category_id")
+            @JsonIgnore
     Category category;
 }
