@@ -3,6 +3,7 @@ package com.dheeraj.expensetracker.service;
 import com.dheeraj.expensetracker.dto.ExpenseRequestDTO;
 import com.dheeraj.expensetracker.dto.ExpenseResponseDTO;
 import com.dheeraj.expensetracker.entity.Expense;
+import com.dheeraj.expensetracker.exception.ResourceNotFoundException;
 import com.dheeraj.expensetracker.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,7 @@ public class ExpenseService {
 
     public Expense getExpenseById(Long id) {
         return expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
     }
 
     public Expense updateExpense(Long id, Expense expense) {

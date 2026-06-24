@@ -1,5 +1,7 @@
 package com.dheeraj.expensetracker.service;
 import com.dheeraj.expensetracker.entity.User;
+import com.dheeraj.expensetracker.exception.DuplicateResourceException;
+import com.dheeraj.expensetracker.exception.ResourceNotFoundException;
 import com.dheeraj.expensetracker.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,15 +20,19 @@ public class UserService {
     }
 
     public User register(User user){
+
+        if(userRepository.findByEmail(user.getEmail()).isPresent()){
+            throw new DuplicateResourceException("Email already exists");
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
     public String login(String email , String password){
         User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new RuntimeException("Email not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Email not found"));
         if(bCryptPasswordEncoder.matches(password, user.getPassword())){
             return jwtService.generateToken(email);
         }
-        throw new RuntimeException("Invalid Password");
+        throw new ResourceNotFoundException("Invalid Password");
     }
 }
