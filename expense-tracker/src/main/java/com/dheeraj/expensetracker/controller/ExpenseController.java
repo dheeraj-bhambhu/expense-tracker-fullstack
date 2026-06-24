@@ -1,5 +1,7 @@
 package com.dheeraj.expensetracker.controller;
 
+import com.dheeraj.expensetracker.dto.ExpenseRequestDTO;
+import com.dheeraj.expensetracker.dto.ExpenseResponseDTO;
 import com.dheeraj.expensetracker.entity.Expense;
 import com.dheeraj.expensetracker.service.ExpenseService;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +17,10 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
     @PostMapping
-    public Expense createExpense(@RequestBody Expense expense){
-        return expenseService.addExpense(expense);
+    public ExpenseResponseDTO createExpense(@RequestBody ExpenseRequestDTO requestDTO){
+        return expenseService.createExpense(requestDTO);
     }
-    @PostMapping("/add")
-    public Expense addExpense(@RequestBody Expense expense){
-        return expenseService.addExpense(expense);
-    }
+   
     @GetMapping("/get")
     public List<Expense> getExpense(){
         return expenseService.getAllexpenses();
