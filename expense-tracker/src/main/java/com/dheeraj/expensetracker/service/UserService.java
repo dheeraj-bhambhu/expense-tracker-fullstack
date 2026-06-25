@@ -6,7 +6,7 @@ import com.dheeraj.expensetracker.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import io.swagger.v3.oas.annotations.Operation;
 @Service
 public class UserService {
     private final UserRepository userRepository;

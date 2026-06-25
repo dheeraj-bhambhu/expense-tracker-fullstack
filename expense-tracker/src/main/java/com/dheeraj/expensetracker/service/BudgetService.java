@@ -11,7 +11,7 @@ import com.dheeraj.expensetracker.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import io.swagger.v3.oas.annotations.Operation;
 @Service
 public class BudgetService {
     private final BudgetRepository budgetRepository;
