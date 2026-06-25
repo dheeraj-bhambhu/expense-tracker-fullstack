@@ -66,34 +66,22 @@ public class ExpenseService {
     }
     public AnalyticsResponseDTO getAnalytics() {
 
-        List<Expense> expenses = expenseRepository.findAll();
 
-        double totalExpense = 0;
-        double highestExpense = 0;
-        long totalTransactions = expenses.size();
+            Long totalTransactions = expenseRepository.getTotalTransactions();
+            Double totalExpense = expenseRepository.getTotalExpense();
+            Double highestExpense = expenseRepository.getHighestExpense();
+            Double averageExpense = expenseRepository.getAverageExpense();
 
-        for (Expense expense : expenses) {
+            AnalyticsResponseDTO response = new AnalyticsResponseDTO();
 
-            totalExpense += expense.getAmount();
+            response.setTotalExpense(totalExpense != null ? totalExpense : 0.0);
+            response.setHighestExpense(highestExpense != null ? highestExpense : 0.0);
+            response.setAverageExpense(averageExpense != null ? averageExpense : 0.0);
+            response.setTotalTransactions(totalTransactions);
 
-            if (expense.getAmount() > highestExpense) {
-                highestExpense = expense.getAmount();
-            }
-        }
+            return response;
+        
 
-        double averageExpense = 0;
-
-        if (!expenses.isEmpty()) {
-            averageExpense = totalExpense / totalTransactions;
-        }
-
-        AnalyticsResponseDTO response = new AnalyticsResponseDTO();
-
-        response.setTotalExpense(totalExpense);
-        response.setHighestExpense(highestExpense);
-        response.setAverageExpense(averageExpense);
-        response.setTotalTransactions(totalTransactions);
-
-        return response;
     }
+
 }
