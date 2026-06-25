@@ -1,312 +1,181 @@
-# Expense Tracker Backend
+# 💰 Expense Tracker API
 
-A RESTful Expense Tracker API built using Spring Boot and MySQL. This project helps users manage expenses, categories, and authentication using JWT. It serves as the backend foundation for a full-stack expense tracking application.
+A secure RESTful Expense Tracker API built with **Java, Spring Boot, Spring Security, JWT Authentication, MySQL, Hibernate, and JPA**. It allows users to manage expenses, categories, and monthly budgets with secure authentication.
 
 ---
 
-## 🚀 Tech Stack
+## 🚀 Features
+
+### 🔐 Authentication
+- User Registration
+- User Login
+- JWT Authentication
+- Password Encryption using BCrypt
+- Protected APIs using Spring Security
+
+### 💸 Expense Management
+- Create Expense
+- Get All Expenses
+- Get Expense by ID
+- Update Expense
+- Delete Expense
+
+### 📂 Category Management
+- Create Category
+- Get All Categories
+- Get Category by ID
+- Update Category
+- Delete Category
+
+### 💰 Budget Management
+- Set Monthly Budget
+- View Budget Summary
+- Total Amount Spent
+- Remaining Budget Calculation
+
+### ⚠️ Exception Handling
+- Global Exception Handling
+- Validation Error Handling
+- Resource Not Found Exception
+- Duplicate Resource Exception
+- Standard Error Response
+
+---
+
+## 🛠️ Tech Stack
 
 - Java 21
 - Spring Boot
-- Spring Data JPA
 - Spring Security
-- JWT (JJWT)
+- Spring Data JPA
 - Hibernate
+- JWT
 - MySQL
-- Lombok
 - Maven
-- Swagger (OpenAPI)
+- Lombok
+- Bean Validation
+- Postman
+- Git & GitHub
 
 ---
 
 ## 📁 Project Structure
 
 ```
-src/main/java/com/dheeraj/expensetracker
-
-├── controller
-├── service
-├── repository
-├── entity
-├── security
-├── exception
-├── config
-└── dto
+src
+ ├── config
+ ├── controller
+ ├── dto
+ ├── entity
+ ├── exception
+ ├── repository
+ ├── security
+ └── service
 ```
 
 ---
 
-## ✅ Features Implemented
+## 🔑 Authentication Flow
 
-### 🔐 Authentication
+1. Register User
+2. Login
+3. Receive JWT Token
+4. Add Token in Authorization Header
 
-- User Registration
-- User Login
-- BCrypt Password Encryption
-- JWT Token Generation
-- Public Auth APIs
+```
+Authorization: Bearer <your_token>
+```
 
-### 💸 Expense Management
-
-- Create Expense
-- Get All Expenses
-- Get Expense By ID
-- Update Expense
-- Delete Expense
-
-### 📂 Category Management
-
-- Create Category
-- Get All Categories
-- Get Category By ID
-- Delete Category
-
-### 🗄 Database
-
-- MySQL Integration
-- Hibernate ORM
-- Auto Table Creation using JPA
-- One-to-Many Relationship (User → Expenses)
+5. Access Protected APIs
 
 ---
 
-## 📌 API Endpoints
+## 📌 Expense APIs
 
-### Authentication
+| Method | Endpoint |
+|----------|----------------|
+| POST | /expenses |
+| GET | /expenses |
+| GET | /expenses/{id} |
+| PUT | /expenses/{id} |
+| DELETE | /expenses/{id} |
 
-#### Register User
+---
 
-POST `/auth/register`
+## 📌 Category APIs
 
-Request Body
+| Method | Endpoint |
+|----------|----------------|
+| POST | /categories |
+| GET | /categories |
+| GET | /categories/{id} |
+| PUT | /categories/{id} |
+| DELETE | /categories/{id} |
+
+---
+
+## 📌 Budget APIs
+
+| Method | Endpoint |
+|----------|----------------|
+| POST | /budget |
+| GET | /budget |
+
+---
+
+## 🧪 Tested Using
+
+- Postman
+
+---
+
+## 📷 Sample Budget Response
 
 ```json
 {
-  "name": "Dheeraj",
-  "email": "dheeraj@gmail.com",
-  "password": "123456"
+    "monthlyBudget": 5000.0,
+    "spentAmount": 500.0,
+    "remainingAmount": 4500.0
 }
 ```
 
 ---
 
-#### Login User
+## ⚙️ Installation
 
-POST `/auth/login`
+Clone the repository
 
-Request Body
-
-```json
-{
-  "email": "dheeraj@gmail.com",
-  "password": "123456"
-}
+```bash
+git clone https://github.com/your-username/expense-tracker.git
 ```
 
-Response
+Go to project directory
 
-```text
-eyJhbGciOiJIUzI1NiJ9...
+```bash
+cd expense-tracker
 ```
 
----
+Build project
 
-### Expense APIs
+```bash
+mvn clean install
+```
 
-#### Create Expense
+Run project
 
-POST `/expenses`
-
-```json
-{
-  "title": "Pizza",
-  "amount": 250,
-  "description": "Dominos Pizza"
-}
+```bash
+mvn spring-boot:run
 ```
 
 ---
 
-#### Get All Expenses
+## 📌 Upcoming Features
 
-GET `/expenses`
-
----
-
-#### Get Expense By ID
-
-GET `/expenses/{id}`
-
----
-
-#### Update Expense
-
-PUT `/expenses/{id}`
-
-```json
-{
-  "title": "Burger",
-  "amount": 300
-}
-```
-
----
-
-#### Delete Expense
-
-DELETE `/expenses/{id}`
-
----
-
-### Category APIs
-
-#### Create Category
-
-POST `/category`
-
-```json
-{
-  "name": "Food"
-}
-```
-
----
-
-#### Get All Categories
-
-GET `/category`
-
----
-
-#### Get Category By ID
-
-GET `/category/{id}`
-
----
-
-#### Delete Category
-
-DELETE `/category/{id}`
-
----
-
-## 🗄 Database Schema
-
-### User
-
-| Field | Type |
-|---------|------|
-| id | Long |
-| name | String |
-| email | String |
-| password | String |
-
----
-
-### Expense
-
-| Field | Type |
-|---------|------|
-| id | Long |
-| title | String |
-| amount | Double |
-| description | String |
-| date | LocalDate |
-
----
-
-### Category
-
-| Field | Type |
-|---------|------|
-| id | Long |
-| name | String |
-
----
-
-## 🔄 Relationships
-
-```
-User
-  |
-  | 1 ---- * 
-  |
-Expense
-
-Category
-  |
-  | 1 ---- *
-  |
-Expense
-```
-
----
-
-## 🧪 Testing
-
-All APIs tested successfully using Postman.
-
-### Authentication
-
-- Register API ✅
-- Login API ✅
-- BCrypt Password Encryption ✅
-- JWT Token Generation ✅
-
-### Expense APIs
-
-- Create Expense ✅
-- Get Expense By ID ✅
-- Update Expense ✅
-- Delete Expense ✅
-
-### Category APIs
-
-- Create Category ✅
-- Get All Categories ✅
-- Get Category By ID ✅
-- Delete Category ✅
-
----
-
-## 🔜 Upcoming Features
-
-### Security
-
-- JWT Validation
-- JwtAuthenticationFilter
-- Protected APIs
-
-### Clean Architecture
-
-- DTO Layer
-- Validation
-- Global Exception Handler
-
-### Business Features
-
-- Budget Feature
 - Expense Analytics
 - Custom Queries
-- Pagination & Sorting
-
-### Testing
-
-- JUnit
-- Mockito
-
-### Deployment
-
+- Swagger Documentation
 - Docker
-- AWS Deployment
-- CI/CD with GitHub Actions
-
-### Frontend
-
-- React
-- Axios
-- React Router
-- Chart.js Dashboard
+- Deployment
 
 ---
 
@@ -314,32 +183,8 @@ All APIs tested successfully using Postman.
 
 **Dhiraj Bhambhu**
 
-- GitHub: https://github.com/dhirajbhambhu
-- LinkedIn: https://www.linkedin.com/in/dhiraj-bhambhu/
+GitHub:
+https://github.com/dhirajbhambhu
 
----
-
-## 📈 Current Progress
-
-```
-Project Setup             ✅
-Entities                  ✅
-Relationships             ✅
-Expense CRUD              ✅
-Category CRUD             ✅
-Register API              ✅
-Login API                 ✅
-BCrypt Password Encoder   ✅
-JWT Token Generation      ✅
-
-JWT Filter                🔜
-Spring Security           🔜
-DTO Layer                 🔜
-Validation                🔜
-Exception Handler         🔜
-Budget Feature            🔜
-Analytics                 🔜
-Testing                   🔜
-Deployment                🔜
-React Frontend            🔜
-```
+LinkedIn:
+https://www.linkedin.com/in/dheeraj-bhambhu
