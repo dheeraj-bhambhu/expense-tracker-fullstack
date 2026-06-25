@@ -1,5 +1,6 @@
 package com.dheeraj.expensetracker.controller;
 
+import com.dheeraj.expensetracker.dto.AnalyticsResponseDTO;
 import com.dheeraj.expensetracker.dto.ExpenseRequestDTO;
 import com.dheeraj.expensetracker.dto.ExpenseResponseDTO;
 import com.dheeraj.expensetracker.entity.Expense;
@@ -29,6 +30,12 @@ public class ExpenseController {
     @GetMapping("/{id}")
     public Expense getExpenseById(@PathVariable Long id){
         return expenseService.getExpenseById(id);
+    }
+    @GetMapping("/analytics")
+    public AnalyticsResponseDTO getAnalytics() {
+
+        return expenseService.getAnalytics();
+
     }
     @PutMapping("/{id}")
     public Expense updateExpense(@PathVariable Long id,@RequestBody Expense expense){

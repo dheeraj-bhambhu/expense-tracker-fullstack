@@ -1,5 +1,6 @@
 package com.dheeraj.expensetracker.service;
 
+import com.dheeraj.expensetracker.dto.AnalyticsResponseDTO;
 import com.dheeraj.expensetracker.dto.ExpenseRequestDTO;
 import com.dheeraj.expensetracker.dto.ExpenseResponseDTO;
 import com.dheeraj.expensetracker.entity.Expense;
@@ -62,5 +63,37 @@ public class ExpenseService {
         Expense Existingexpense = expenseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Expense not found"));
         expenseRepository.delete(Existingexpense);
+    }
+    public AnalyticsResponseDTO getAnalytics() {
+
+        List<Expense> expenses = expenseRepository.findAll();
+
+        double totalExpense = 0;
+        double highestExpense = 0;
+        long totalTransactions = expenses.size();
+
+        for (Expense expense : expenses) {
+
+            totalExpense += expense.getAmount();
+
+            if (expense.getAmount() > highestExpense) {
+                highestExpense = expense.getAmount();
+            }
+        }
+
+        double averageExpense = 0;
+
+        if (!expenses.isEmpty()) {
+            averageExpense = totalExpense / totalTransactions;
+        }
+
+        AnalyticsResponseDTO response = new AnalyticsResponseDTO();
+
+        response.setTotalExpense(totalExpense);
+        response.setHighestExpense(highestExpense);
+        response.setAverageExpense(averageExpense);
+        response.setTotalTransactions(totalTransactions);
+
+        return response;
     }
 }
