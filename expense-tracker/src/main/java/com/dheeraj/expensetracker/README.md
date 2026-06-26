@@ -1,167 +1,133 @@
-# 💰 Expense Tracker API
+# Expense Tracker API
 
-A secure RESTful Expense Tracker API built with **Java, Spring Boot, Spring Security, JWT Authentication, MySQL, Hibernate, and JPA**. It allows users to manage expenses, categories, and monthly budgets with secure authentication.
+A RESTful Expense Tracker backend built with Spring Boot. It allows users to securely manage expenses, organize them into categories, set budgets, and monitor spending. Authentication is handled using JWT and the project follows clean layered architecture with unit testing.
 
 ---
 
-## 🚀 Features
+## Features
 
-### 🔐 Authentication
+### Authentication
 - User Registration
 - User Login
 - JWT Authentication
-- Password Encryption using BCrypt
-- Protected APIs using Spring Security
+- BCrypt Password Encryption
+- Role-Based Authorization (USER, ADMIN)
 
-### 💸 Expense Management
+### Expense Management
 - Create Expense
-- Get All Expenses
-- Get Expense by ID
 - Update Expense
 - Delete Expense
+- Get Expense by ID
+- Get All Expenses
+- Search Expenses
 
-### 📂 Category Management
+### Category Management
 - Create Category
-- Get All Categories
-- Get Category by ID
 - Update Category
 - Delete Category
+- Get All Categories
 
-### 💰 Budget Management
-- Set Monthly Budget
-- View Budget Summary
-- Total Amount Spent
-- Remaining Budget Calculation
+### Budget Management
+- Create Budget
+- Update Budget
+- Delete Budget
+- Get Budget
+- Budget Validation
 
-### ⚠️ Exception Handling
+### Security
+- Spring Security
+- JWT Authentication
+- Role-Based Access
+- Password Encryption
+
+### Validation & Exception Handling
+- Bean Validation
 - Global Exception Handling
-- Validation Error Handling
-- Resource Not Found Exception
-- Duplicate Resource Exception
-- Standard Error Response
+- Custom Exception Messages
+
+### API Documentation
+- Swagger UI (OpenAPI)
+
+### Testing
+- Unit Testing using JUnit 5
+- Mockito for Service Layer Testing
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Java 21
 - Spring Boot
 - Spring Security
 - Spring Data JPA
 - Hibernate
-- JWT
 - MySQL
-- Maven
+- JWT
 - Lombok
-- Bean Validation
-- Postman
-- Git & GitHub
+- Maven
+- Swagger/OpenAPI
+- JUnit 5
+- Mockito
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src
- ├── config
- ├── controller
- ├── dto
- ├── entity
- ├── exception
- ├── repository
- ├── security
- └── service
+├── controller
+├── service
+├── service/impl
+├── repository
+├── entity
+├── dto
+├── security
+├── config
+├── exception
+├── util
+└── test
 ```
 
 ---
 
-## 🔑 Authentication Flow
+## API Endpoints
 
-1. Register User
-2. Login
-3. Receive JWT Token
-4. Add Token in Authorization Header
+### Authentication
+- POST /api/auth/register
+- POST /api/auth/login
 
-```
-Authorization: Bearer <your_token>
-```
+### Expenses
+- POST /api/expenses
+- GET /api/expenses
+- GET /api/expenses/{id}
+- PUT /api/expenses/{id}
+- DELETE /api/expenses/{id}
 
-5. Access Protected APIs
+### Categories
+- POST /api/categories
+- GET /api/categories
+- PUT /api/categories/{id}
+- DELETE /api/categories/{id}
 
----
-
-## 📌 Expense APIs
-
-| Method | Endpoint |
-|----------|----------------|
-| POST | /expenses |
-| GET | /expenses |
-| GET | /expenses/{id} |
-| PUT | /expenses/{id} |
-| DELETE | /expenses/{id} |
-
----
-
-## 📌 Category APIs
-
-| Method | Endpoint |
-|----------|----------------|
-| POST | /categories |
-| GET | /categories |
-| GET | /categories/{id} |
-| PUT | /categories/{id} |
-| DELETE | /categories/{id} |
+### Budgets
+- POST /api/budgets
+- GET /api/budgets
+- PUT /api/budgets/{id}
+- DELETE /api/budgets/{id}
 
 ---
 
-## 📌 Budget APIs
+## Running the Project
 
-| Method | Endpoint |
-|----------|----------------|
-| POST | /budget |
-| GET | /budget |
-
----
-
-## 🧪 Tested Using
-
-- Postman
-
----
-
-## 📷 Sample Budget Response
-
-```json
-{
-    "monthlyBudget": 5000.0,
-    "spentAmount": 500.0,
-    "remainingAmount": 4500.0
-}
-```
-
----
-
-## ⚙️ Installation
-
-Clone the repository
+1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/expense-tracker.git
+git clone <repository-url>
 ```
 
-Go to project directory
+2. Configure MySQL in `application.properties`
 
-```bash
-cd expense-tracker
-```
-
-Build project
-
-```bash
-mvn clean install
-```
-
-Run project
+3. Run the application
 
 ```bash
 mvn spring-boot:run
@@ -169,22 +135,24 @@ mvn spring-boot:run
 
 ---
 
-## 📌 Upcoming Features
+## Running Tests
 
-- Expense Analytics
-- Custom Queries
-- Swagger Documentation
-- Docker
-- Deployment
+```bash
+mvn test
+```
 
 ---
 
-## 👨‍💻 Author
+## Future Improvements
 
-**Dhiraj Bhambhu**
+- Docker Support
+- Docker Compose
+- Deployment
+- CI/CD Pipeline
+- Integration Testing
 
-GitHub:
-https://github.com/dhirajbhambhu
+---
 
-LinkedIn:
-https://www.linkedin.com/in/dheeraj-bhambhu
+## Author
+
+**Dheeraj Bhambhu**
