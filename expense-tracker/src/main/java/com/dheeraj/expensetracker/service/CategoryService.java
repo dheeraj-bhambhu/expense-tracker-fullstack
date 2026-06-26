@@ -1,6 +1,7 @@
 package com.dheeraj.expensetracker.service;
 
 import com.dheeraj.expensetracker.entity.Category;
+import com.dheeraj.expensetracker.exception.ResourceNotFoundException;
 import com.dheeraj.expensetracker.repository.CategoryRepository;
 import com.dheeraj.expensetracker.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,11 @@ public class CategoryService {
        }
        public Category getCategoryById(long id){
            return categoryRepository.findById(id)
-                   .orElseThrow(() ->  new RuntimeException("ID not found"));
+                   .orElseThrow(() ->  new ResourceNotFoundException("ID not found"));
        }
        public void deleteCategory(Long id){
            Category category = categoryRepository.findById(id)
-                   .orElseThrow(() -> new RuntimeException("Category not found"));
+                   .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
             categoryRepository.delete(category);
        }

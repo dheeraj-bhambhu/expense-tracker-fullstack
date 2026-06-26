@@ -57,16 +57,18 @@ public class ExpenseService {
 
     public Expense updateExpense(Long id, Expense expense) {
         Expense existingExpense = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
         existingExpense.setTitle(expense.getTitle());
         existingExpense.setAmount(expense.getAmount());
+        existingExpense.setDescription(expense.getDescription());
 
         return expenseRepository.save(existingExpense);
     }
 
     public void deleteExpense(Long id) {
         Expense Existingexpense = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Expense not found"));
         expenseRepository.delete(Existingexpense);
     }
 
