@@ -1,8 +1,28 @@
 import { useState } from "react";
+import api from "../../services/api";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+ async function handleLogin(event) {
+  event.preventDefault();
+    if (email === "") {
+    alert("Please enter email");
+    return;
+  }
+
+  if (password === "") {
+    alert("Please enter password");
+    return;
+  }
+
+   const response = await api.post("/auth/login", {
+    email: email,
+    password: password,
+  });
+
+  console.log(response.data);
+}
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
@@ -11,7 +31,7 @@ function Login() {
           Expense Tracker
         </h1>
 
-        <form>
+        <form onSubmit={handleLogin}>
           {/* Email */}
           <div className="mb-4">
             <label className="block mb-2 font-medium">
