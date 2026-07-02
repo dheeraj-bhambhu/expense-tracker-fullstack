@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
  async function handleLogin(event) {
   event.preventDefault();
-    if (email === "") {
+
+  if (email === "") {
     alert("Please enter email");
     return;
   }
@@ -16,12 +20,18 @@ function Login() {
     return;
   }
 
-   const response = await api.post("/auth/login", {
-    email: email,
-    password: password,
-  });
+  try {
+    const response = await api.post("/auth/login", {
+      email,
+      password,
+    });
 
-  console.log(response.data);
+    localStorage.setItem("token", response.data);
+navigate("/dashboard");
+console.log("Token Saved Successfully"); 
+  } catch (error) {
+    alert("Invalid email or password");
+  }
 }
 
   return (
